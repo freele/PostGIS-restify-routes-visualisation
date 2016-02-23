@@ -54,7 +54,15 @@ FROM \
       res.send(500, {http_status:500,error_msg: err})
       return console.error('error running query', err);
     }
-    res.send(result);
+    console.log(result.rows);
+    var response = result.rows[0].row_to_json.features.map(function(feature) {
+      return {
+        time: feature.properties.time,
+        start: feature.geometry.coordinates[0],
+        end: feature.geometry.coordinates[feature.geometry.coordinates.length - 1],
+      };
+    });
+    res.send(response);
     return rows;
   });
 };
