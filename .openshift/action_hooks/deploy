@@ -1,7 +1,0 @@
-#!/bin/bash
-
-## This step should now be automatically run via the npm postinstall hook
-## See the project's package.json file for specifics
-#pushd $OPENSHIFT_REPO_DIR
-#npm run initdb
-#popd
