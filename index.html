@@ -64,17 +64,31 @@
       $.get(url, pinTheMap, "json")
     }
 
-    function pinTheMap(data){
-      debugger;
+    function pinTheMap(response){
       //clear the current pins
       map.removeLayer(markerLayerGroup);
 
       //add the new pins
-      var markerArray = new Array(data.length)
-      for (var i = 0; i < data.length; i++){
-        park = data[i];
-        markerArray[i] = L.marker([park.lat, park.lon]).bindPopup(park.name);
+      var routes = response.routes;
+      var mall = response.mall;
+
+      var markerArray = new Array(routes.length)
+      for (var i = 0; i < routes.length; i++){
+        var placeFrom = routes[i];
+        // markerArray[i] = L.marker([placeFrom[0][0], placeFrom[0][1]]).bindPopup(park.name);
+        // markerArray[i] = L.marker([placeFrom[0][1], placeFrom[0][0]]);
+
+        markerArray[i] = L.circle([placeFrom[0][1], placeFrom[0][0]], 50, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.3
+        });
       }
+
+      markerArray[i] = L.circle([mall.coords[1], mall.coords[0]], mall.radius, {
+          fillColor: 'blue',
+          fillOpacity: 0.3
+      });
 
       markerLayerGroup = L.layerGroup(markerArray).addTo(map);
     }

@@ -9,7 +9,7 @@ app.use(restify.fullResponse())
 
 // Routes
 // app.get('/routes/within', db.selectBox);
-app.get('/routes', db.selectAll);
+app.get('/routes', db.selectAllPrecalculated);
 app.get('/status', function (req, res, next)
 {
   res.send("{status: 'ok'}");

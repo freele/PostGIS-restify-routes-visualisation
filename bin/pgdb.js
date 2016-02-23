@@ -30,7 +30,7 @@ var error_response = "data already exists - bypassing db initialization step\n";
 //   })
 // };
 
-function select_all(req, res, next){
+function selectAll(req, res, next){
   console.log('SELECT ALL');
   pg(" \
 SELECT row_to_json(fc) \
@@ -46,7 +46,7 @@ FROM \
                               (SELECT time) AS l)) AS properties \
       FROM ogrgeojson AS lg, \
            malls \
-      WHERE ST_Crosses(ST_Buffer(ST_MakePoint(37.650324, 55.725506)::geography, 3000)::geometry, lg.wkb_geometry)) AS f) AS fc \
+      WHERE ST_Crosses(ST_Buffer(ST_MakePoint(37.565712, 55.744938)::geography, 3000)::geometry, lg.wkb_geometry) limit 10) AS f) AS fc \
       ",
       function(err, rows, result) {
     console.log('ERR', err);
@@ -56,19 +56,31 @@ FROM \
     }
     console.log(result.rows);
     var response = result.rows[0].row_to_json.features.map(function(feature) {
-      return {
-        time: feature.properties.time,
-        start: feature.geometry.coordinates[0],
-        end: feature.geometry.coordinates[feature.geometry.coordinates.length - 1],
-      };
+      // return {
+      //   time: feature.properties.time,
+      //   start: feature.geometry.coordinates[0],
+      //   end: feature.geometry.coordinates[feature.geometry.coordinates.length - 1],
+      // };
+      return [
+        feature.geometry.coordinates[0],
+        feature.geometry.coordinates[feature.geometry.coordinates.length - 1],
+        feature.properties.time,
+      ];
     });
     res.send(response);
     return rows;
   });
 };
 
+function selectAllPrecalculated(req, res, next){
+  console.log('SELECT ALL PRECALCULATED');
+
+  res.send(require('../utils/calculated/zolotoy_vavilon.json'));
+};
+
 module.exports = exports = {
-  selectAll: select_all,
+  selectAll: selectAll,
+  selectAllPrecalculated: selectAllPrecalculated,
   // selectBox: select_box,
   // flushDB:   flush_db,
   // initDB:    init_db
