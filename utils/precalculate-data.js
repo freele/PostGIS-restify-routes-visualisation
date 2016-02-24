@@ -12,10 +12,15 @@ var mallsData = {
     filename: 'zolotoy_vavilon.json',
     coords: [37.661292, 55.845645],
     radius: 1000
+  },
+  sadovod: {
+    filename: 'sadovod.json',
+    coords: [37.830043, 55.654760],
+    radius: 1000
   }
 }
 
-var currentMall = mallsData.zolotoy_vavilon;
+var currentMall = mallsData.sadovod;
 
 
 pg.connectionParameters = 'postgres://docker:docker@192.168.99.100:25432/gis'; // _TODO move to config file
