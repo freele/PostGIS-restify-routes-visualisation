@@ -17,7 +17,7 @@ function getRoutes(e){
 
 function pinTheMap(response){
   //clear the current pins
-  map.removeLayer(markerLayerGroup);
+  // map.removeLayer(markerLayerGroup);
 
   //add the new pins
   var routes = response.routes;
@@ -47,10 +47,13 @@ function pinTheMap(response){
       fillOpacity: 0.3
   });
 
-  L.layerGroup(markerArray1).addTo(map);
-  L.layerGroup(markerArray2).addTo(map);
-  L.layerGroup(map).addTo(map);
+  var layerGroup1 = L.layerGroup(markerArray1).addTo(map);
+  var layerGroup2 = L.layerGroup(markerArray2).addTo(map);
+  // L.layerGroup(mall).addTo(map);
+  map.addLayer(mall);
 
+  // map.removeLayer(layerGroup2);
+  // map.addLayer(layerGroup2);
   // markerLayerGroup = L.layerGroup(markerArray).addTo(map);
 }
 
