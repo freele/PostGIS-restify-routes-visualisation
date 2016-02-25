@@ -17,13 +17,14 @@ app.get('/status', function (req, res, next)
 
 app.get('/', function (req, res, next)
 {
+  // var data = fs.readFileSync(__dirname + '/index-cross.html');
   var data = fs.readFileSync(__dirname + '/index.html');
   res.status(200);
   res.header('Content-Type', 'text/html');
   res.end(data.toString().replace(/host:port/g, req.header('Host')));
 });
 
-app.get(/\/(css|js|img)\/?.*/, restify.serveStatic({directory: __dirname+'/static'}));
+app.get(/\/(css|js|img|json)\/?.*/, restify.serveStatic({directory: __dirname+'/static'}));
 
 app.listen(3000, function () {
   console.log( "Listening on " + "localhost "+ ", port " + 3000 )

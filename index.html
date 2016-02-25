@@ -4,6 +4,11 @@
   <title>Map of Parks and Historic Sites</title>
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel='stylesheet prefetch' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.css'>
+    <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.0.5/docs.css'>
+
   <!--[if lte IE 8]>
       <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
   <![endif]-->
@@ -13,8 +18,32 @@
 
 </head>
 <body>
-  <h1 id="title">Strelka/Habidatum</h1>
+  <div ng-controller="AppCtrl" ng-cloak="" id="angularWrapper" class="sliderdemoBasicUsage" ng-app="MyApp">
+    <h1 id="title">Strelka/Habidatum</h1>
+
+
+    <!-- <div layout>
+      <div flex="10" layout layout-align="center center">
+        <span class="md-body-1">md-warn</span>
+      </div> -->
+    <div id="sliderWrapper">
+      <md-slider flex class="md-warn" md-discrete ng-model="rating2" step="1" min="0" max="23" aria-label="rating">
+      </md-slider>
+    </div>
+
+    <!-- </div> -->
+  </div>
   <div id="map"></div>
+
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js'></script>
+  <script src='http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js'></script>
+  <script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.js'></script>
+
+
   <script src="//cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
   <script src="./js/script.js"></script>
 </body>

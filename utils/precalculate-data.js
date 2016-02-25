@@ -17,10 +17,15 @@ var mallsData = {
     filename: 'sadovod.json',
     coords: [37.830043, 55.654760],
     radius: 1000
+  },
+  schuka: {
+    filename: 'schuka.json',
+    coords: [37.464650, 55.809457],
+    radius: 1000
   }
 }
 
-var currentMall = mallsData.sadovod;
+var currentMall = mallsData.schuka;
 
 
 pg.connectionParameters = 'postgres://docker:docker@192.168.99.100:25432/gis'; // _TODO move to config file
