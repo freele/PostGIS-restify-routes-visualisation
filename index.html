@@ -26,9 +26,33 @@
       <div flex="10" layout layout-align="center center">
         <span class="md-body-1">md-warn</span>
       </div> -->
-    <div id="sliderWrapper">
+    <!-- <div id="sliderWrapper">
       <md-slider flex class="md-warn" md-discrete ng-model="rating2" step="1" min="0" max="23" aria-label="rating">
       </md-slider>
+    </div> -->
+    <div class="selectorWrapper">
+      <md-input-container>
+        <label>State</label>
+        <md-select ng-model="ctrl.userState">
+          <md-option ng-repeat="state in ctrl.states" value="{{state.abbrev}}">
+            {{state.abbrev}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <div id="selectRoutes">
+      <div id="charts">
+        <div id="hour-chart" class="chart">
+          <div class="title">Time of Day</div>
+        </div>
+      </div>
+
+      <div id="totals"><span id="active">-</span> of <span id="total">-</span> routes selected.</div>
+
+      <div id="lists">
+        <div id="flight-list" class="list"></div>
+      </div>
     </div>
 
     <!-- </div> -->
@@ -45,6 +69,10 @@
 
 
   <script src="//cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+
+  <script src="js/crossfilter.v1.min.js"></script>
+  <script src="js/d3.v3.min.js"></script>
+
   <script src="./js/script.js"></script>
 </body>
 </html>

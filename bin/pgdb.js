@@ -75,7 +75,7 @@ FROM \
 function selectAllPrecalculated(req, res, next){
   console.log('SELECT ALL PRECALCULATED');
 
-  res.send(require('../utils/calculated/zolotoy_vavilon.json'));
+  res.send(require('../utils/calculated/schuka.json'));
 };
 
 module.exports = exports = {
