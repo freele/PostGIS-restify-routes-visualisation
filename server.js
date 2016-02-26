@@ -26,6 +26,6 @@ app.get('/', function (req, res, next)
 
 app.get(/\/(css|js|img|json)\/?.*/, restify.serveStatic({directory: __dirname+'/static'}));
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log( "Listening on " + "localhost "+ ", port " + 3000 )
 });
