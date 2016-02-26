@@ -73,9 +73,9 @@ FROM \
 };
 
 function selectAllPrecalculated(req, res, next){
-  console.log('SELECT ALL PRECALCULATED');
+  console.log('SELECT ALL PRECALCULATED: ', req.params.mall);
 
-  res.send(require('../utils/calculated/schuka.json'));
+  res.send(require('../utils/calculated/' + req.params.mall + '.json'));
 };
 
 module.exports = exports = {

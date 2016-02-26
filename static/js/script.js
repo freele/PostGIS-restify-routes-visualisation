@@ -18,7 +18,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 
   function getRoutes(e){
     bounds = map.getBounds();
-    url = "routes";
+    url = "routes/" + 'schuka';
     $.get(url, pinTheMap, "json")
   }
 
