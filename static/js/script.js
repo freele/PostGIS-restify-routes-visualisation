@@ -119,16 +119,20 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
     map.addLayer(mall);
 
     var layerHomes;
+    var layerWorks;
     function flightList(div) {
       if (layerHomes) {
         map.removeLayer(layerHomes);
       }
+      if (layerWorks) {
+        map.removeLayer(layerWorks);
+      }
 
 
-      var flightsByDate = nestByDate.entries(date.top(1000));
+      var flightsByDate = nestByDate.entries(date.top(10000));
 
       var markerArrayHomes = new Array(flightsByDate.length)
-      // var markerArray2 = new Array(routes.length)
+      var markerArrayWorks = new Array(flightsByDate.length)
       for (var i = 0; i < flightsByDate.length; i++){
         var placeFrom = flightsByDate[i].values[0];
         // markerArray[i] = L.marker([placeFrom[0][0], placeFrom[0][1]]).bindPopup(park.name);
@@ -137,21 +141,26 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
         var d = new Date(placeFrom.date);
         var hours = d.getHours();
 
-        var startIndex = hours < 12 ? 'start' : 'end'; // First part of the day - starting point, second - end point.
-        markerArrayHomes[i] = L.circle([placeFrom[startIndex][1], placeFrom[startIndex][0]], 50, {
+        var startIndexHome = hours < 12 ? 'start' : 'end'; // First part of the day - starting point, second - end point.
+        var startIndexWork = hours < 12 ? 'end' : 'start'; // First part of the day - starting point, second - end point.
+        // startIndex = 'start'; // _DEBUG
+        markerArrayHomes[i] = L.circle([placeFrom[startIndexHome][1], placeFrom[startIndexHome][0]], 500, {
             color: 'red',
             fillColor: '#f03',
-            fillOpacity: 0.3
+            fillOpacity: 0.3,
+            stroke: false,
         });
-        // markerArray2[i] = L.circle([placeFrom[1][1], placeFrom[1][0]], 50, {
-        //     color: 'green',
-        //     fillColor: '#f03',
-        //     fillOpacity: 0.3
-        // });
+        markerArrayWorks[i] = L.circle([placeFrom[startIndexWork][1], placeFrom[startIndexWork][0]], 500, {
+            color: 'green',
+            fillColor: '#66CC33',
+            fillOpacity: 0.3,
+            stroke: false,
+        });
       }
 
 
       layerHomes = L.layerGroup(markerArrayHomes).addTo(map);
+      layerWorks = L.layerGroup(markerArrayWorks).addTo(map);
       // var layerGroup2 = L.layerGroup(markerArray2).addTo(map);
       // L.layerGroup(mall).addTo(map);
 
@@ -306,20 +315,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
         div.select(".title a").style("display", null);
       });
 
-      // brush.on("brush.chart", function() {
-      //   var g = d3.select(this.parentNode),
-      //       extent = brush.extent();
-      //   if (round) g.select(".brush")
-      //       .call(brush.extent(extent = extent.map(round)))
-      //     .selectAll(".resize")
-      //       .style("display", null);
-      //   g.select("#clip-" + id + " rect")
-      //       .attr("x", x(extent[0]))
-      //       .attr("width", x(extent[1]) - x(extent[0]));
-      //   dimension.filterRange(extent);
-      // });
-
-      brush.on("brushend.chart", function() {
+      brush.on("brush.chart", function() {
         var g = d3.select(this.parentNode),
             extent = brush.extent();
         if (round) g.select(".brush")
@@ -330,6 +326,19 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
             .attr("x", x(extent[0]))
             .attr("width", x(extent[1]) - x(extent[0]));
         dimension.filterRange(extent);
+      });
+
+      brush.on("brushend.chart", function() {
+        // var g = d3.select(this.parentNode),
+        //     extent = brush.extent();
+        // if (round) g.select(".brush")
+        //     .call(brush.extent(extent = extent.map(round)))
+        //   .selectAll(".resize")
+        //     .style("display", null);
+        // g.select("#clip-" + id + " rect")
+        //     .attr("x", x(extent[0]))
+        //     .attr("width", x(extent[1]) - x(extent[0]));
+        // dimension.filterRange(extent);
 
         if (brush.empty()) {
           var div = d3.select(this.parentNode.parentNode.parentNode);
